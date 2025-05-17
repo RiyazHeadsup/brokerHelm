@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "mosquitto.fullname" . }}-pvc
+  labels:
+    {{- include "mosquitto.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - {{ .Values.mosquitto.persistence.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.mosquitto.persistence.size }}
+  storageClassName: {{ .Values.mosquitto.persistence.storageClass }}

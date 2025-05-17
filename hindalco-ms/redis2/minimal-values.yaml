@@ -1,0 +1,14 @@
+architecture: replication
+auth:
+  password: "redis123"
+
+master:
+  persistence:
+    enabled: true
+    size: 1Gi
+
+replica:
+  replicaCount: 1
+  persistence:
+    enabled: true
+    size: 1Gi

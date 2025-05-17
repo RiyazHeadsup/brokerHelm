@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "mosquitto.fullname" . }}
+  labels:
+    {{- include "mosquitto.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.mosquitto.replicaCount | default 1 }}
+  selector:
+    matchLabels:
+      {{- include "mosquitto.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "mosquitto.selectorLabels" . | nindent 8 }}
+    spec:
+      securityContext:
+        fsGroup: {{ .Values.mosquitto.security.fsGroup | default 1883 }}
+        runAsUser: {{ .Values.mosquitto.security.runAsUser | default 1883 }}
+        runAsGroup: {{ .Values.mosquitto.security.runAsGroup | default 1883 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.mosquitto.image.repository }}:{{ .Values.mosquitto.image.tag | default .Chart.AppVersion }}"
+          ports:
+            {{- range .Values.mosquitto.ports }}
+            - name: {{ .name }}
+              containerPort: {{ .containerPort }}
+            {{- end }}
+          volumeMounts:
+            - name: mosquitto-config
+              mountPath: /mosquitto/config/mosquitto.conf
+              subPath: mosquitto.conf
+            - name: mosquitto-passwd
+              mountPath: /mosquitto/config/password_file
+              subPath: password_file
+            - name: mosquitto-data
+              mountPath: /mosquitto/data
+      volumes:
+        - name: mosquitto-config
+          configMap:
+            name: {{ include "mosquitto.fullname" . }}-config
+        - name: mosquitto-passwd
+          secret:
+            secretName: {{ include "mosquitto.fullname" . }}-secret
+        - name: mosquitto-data
+          persistentVolumeClaim:
+            claimName: {{ include "mosquitto.fullname" . }}-pvc

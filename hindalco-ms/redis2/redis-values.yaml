@@ -1,0 +1,26 @@
+architecture: replication
+
+auth:
+  enabled: true
+  password: "redis123"
+
+master:
+  persistence:
+    enabled: true
+    storageClass: "hostpath"
+    size: 1Gi
+    annotations: {}
+
+replica:
+  replicaCount: 1
+  persistence:
+    enabled: true
+    storageClass: "hostpath"
+    size: 1Gi
+    annotations: {}
+
+volumePermissions:
+  enabled: true
+
+global:
+  storageClass: "hostpath"

@@ -1,0 +1,12 @@
+dependencies:
+- name: hindalco-common
+  repository: file://../../hindalco-common
+  version: 0.1.0
+- name: mosquitto
+  repository: file://../../hindalco-ms/mosquitto
+  version: 0.1.0
+- name: redis
+  repository: file://../../hindalco-ms/redis
+  version: 20.6.3
+digest: sha256:db6ab9863cc6c17f4f93ff618f1f5288a6d30b7236384e079408ead08b4ff23e
+generated: "2025-01-30T21:34:35.700567+05:30"

@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "mosquitto.fullname" . }}-config
+  labels:
+    {{- include "mosquitto.labels" . | nindent 4 }}
+data:
+  mosquitto.conf: |
+    # MQTT listener
+    listener 1883 0.0.0.0
+    protocol mqtt
+
+    # WebSocket listener
+    listener 9001 0.0.0.0
+    protocol websockets
+
+    # General settings
+    allow_anonymous {{ .Values.mosquitto.config.allowAnonymous }}
+    {{- range .Values.mosquitto.config.logType }}
+    log_type {{ . }}
+    {{- end }}
+    connection_messages {{ .Values.mosquitto.config.connectionMessages }}
