@@ -1,5 +1,5 @@
 global:
-  configMapName: hindalcodev-configmap
+  configMapName: hindalcodevbroker-configmap
   activeProfile: default
   discovery: http://discovery:8761/eureka/
   mongodb_host: 159.89.171.87

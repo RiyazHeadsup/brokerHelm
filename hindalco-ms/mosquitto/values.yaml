@@ -1,5 +1,5 @@
 global:
-  configMapName: hindalcodev-configmap
+  configMapName: hindalcodevbroker-configmap
 
 # Mosquitto specific configurations
 mosquitto:
