@@ -35,6 +35,15 @@ mosquitto:
     runAsUser: 1883
     runAsGroup: 1883
 
+  # Increased resources only
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "500m"
+    limits:
+      memory: "2Gi"
+      cpu: "2000m"
+
   config:
     allowAnonymous: true
     logType:
