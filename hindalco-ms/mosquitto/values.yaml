@@ -19,7 +19,7 @@ mosquitto:
     containerPort: 9001
 
   service:
-    type: LoadBalancer
+    type: NodePort
     ports:
     - name: mqtt
       port: 1883
